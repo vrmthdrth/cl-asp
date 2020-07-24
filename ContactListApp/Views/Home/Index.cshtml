@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Список контактов";
+}
+<div>
+    <h3>Список контактов</h3>
+
+    @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+    {
+        <input type="text" name="parameter" />
+
+        <select name="searchCriterion">
+            <option value="byDefault">By default</option>
+            <option value="surname">Surname</option>
+            <option value="name">Name</option>
+            <option value="patronymic">Patronymic</option>
+            <option value="birthDate">Birth date</option>
+            <option value="organization">Organization</option>
+            <option value="position">Position</option>
+            <option value="phone">Phone</option>
+            <option value="email">E-mail</option>
+            <option value="skype">Skype</option>
+            <option value="other">Other</option>
+        </select>
+
+        <input type="submit" value="Поиск" />
+    }
+
+    <table>
+        <tr style="font-weight: bold; text-align: center;">
+            <td><p>Surname</p></td>
+            <td><p>Name</p></td>
+            <td><p>Patronymic</p></td>
+            <td><p>BirthDate</p></td>
+            <td><p>Organization</p></td>
+            <td><p>Position</p></td>
+            <td><p>Phone</p></td>
+            <td><p>E-mail</p></td>
+            <td><p>Skype</p></td>
+            <td><p>Other</p></td>
+            <td><p><a href="/Home/Add/">Добавить контакт</a></p></td>
+        </tr>
+        @foreach (var contact in ViewBag.Contacts)
+        {
+            <tr style="text-align: center">
+                <td><p>@contact.Surname</p></td>
+                <td><p>@contact.Name</p></td>
+                <td><p>@contact.Patronymic</p></td>
+                <td><p>@contact.BirthDate</p></td>
+                <td><p>@contact.Organization</p></td>
+                <td><p>@contact.Position</p></td>
+                <td>
+                    <p>@contact.ContactInfo.Phone</p>
+                </td>
+                <td>
+                    <p>@contact.ContactInfo.Email</p>
+                </td>
+                <td>
+                    <p>@contact.ContactInfo.Skype</p>
+                </td>
+                <td>
+                    <p>@contact.ContactInfo.Other</p>
+                </td>
+                <td>
+                    <p><a href="/Home/Change/@contact.ContactId">Изменить</a></p>
+                    <p><a href="/Home/Delete/@contact.ContactId">Удалить</a></p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
